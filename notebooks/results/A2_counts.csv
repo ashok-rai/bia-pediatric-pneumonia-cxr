@@ -1,0 +1,3 @@
+class,train,val,test
+normal,1218,131,234
+pneumonia,3491,392,390
