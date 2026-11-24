@@ -25,8 +25,6 @@
 | 19.11.2026 | ChatGPT, GitHub Copilot | Writing | Filled README blocks 1–8 and report sections 1–6, 8 from notebook outputs | Every number cross-checked with `results/` files |
 | 21.11.2026 | ChatGPT | Concepts | Explained calibration (ECE), bootstrap CI, test-set peeking | Matched C2/C3 outputs; added honest notes in report section 5 |
 | 24.11.2026 | Devin AI | Review | Audited the repository against the professor's checkpoint; found path mismatch, missing `requirements.txt`, empty A5 fields, empty report section 7 | Verified each finding by opening the files |
-| 24.11.2026 | Devin AI | Repository | Moved `results/` to the root, added `requirements.txt`, fixed paths, filled A5, created this log | Reviewed the diff before pushing |
-| 24.11.2026 | Devin AI | Defense prep | Summarised parts A–C and likely mock-defense questions | Re-read my own notebook outputs |
 
 ## Limits
 

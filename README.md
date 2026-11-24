@@ -67,4 +67,4 @@ No. My Deep Learning project is a different one (Project 6, Kim CNN).
 
 ## 9 · Use of AI tools  *(report section 7)*
 
-Dated log of how I used ChatGPT, GitHub Copilot and Devin AI: `AI_USAGE_LOG.md`.
+Dated log of how I used ChatGPT, GitHub Copilot and Devin AI: [AI_USAGE_LOG.md](AI_USAGE_LOG.md).
