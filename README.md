@@ -1,7 +1,7 @@
 # Pneumonia or normal? Classifying pediatric chest X-rays (Kermany et al., 2018)
 
 **Biomedical Image Analysis · M.Sc. Applied Data Science and AI · SRH University Munich · WS 2026/27**
-**Author:** Ashok Rai · **Last updated:** 19.11.2026
+**Author:** Ashok Rai · **Last updated:** 24.11.2026
 
 ---
 
@@ -51,9 +51,9 @@ Can a CNN pretrained on ImageNet (transfer learning) tell pneumonia from normal 
 
 ## 7 · How to run it  *(report section 4)*
 
-- **Environment:** Google Colab with a Tesla T4 GPU. Python 3, PyTorch + torchvision. Versions in `notebooks/results-latest/requirements.txt`: numpy 2.4.6, torch 2.14.1, torchvision 0.29.1, scikit-learn 1.6.1, plus matplotlib, Pillow, requests.
+- **Environment:** Google Colab with a Tesla T4 GPU. Python 3, PyTorch + torchvision. Versions in `requirements.txt`: numpy 2.4.6, torch 2.14.1, torchvision 0.29.1, scikit-learn 1.6.1, plus matplotlib, Pillow, requests.
 - **Order:** One notebook, `notebooks/BIA_W6_Project_Latest.ipynb`: run the download cell (Mendeley zip), check the YOUR DATA cell, then Runtime → Run all.
-- **Which file makes which table or figure:** The notebook writes its files to `results/`; in this repository they are in `notebooks/results-latest/results/`.
+- **Which file makes which table or figure:** The notebook writes its files to `results/` (repository root).
   - `A1_examples.png` → report section 2, figure of typical images
   - `A2_counts.csv`, `A5_data_table.md` → report section 2, data table
   - `B2_confusion.png`, `B3_numbers.md`, `C1_seeds.json`, `C2_bootstrap.png` → report section 5, results table
@@ -64,3 +64,7 @@ Can a CNN pretrained on ImageNet (transfer learning) tell pneumonia from normal 
 ## 8 · Shared with my Deep Learning project?
 
 No. My Deep Learning project is a different one (Project 6, Kim CNN).
+
+## 9 · Use of AI tools  *(report section 7)*
+
+Dated log of how I used ChatGPT, GitHub Copilot and Devin AI: `AI_USAGE_LOG.md`.

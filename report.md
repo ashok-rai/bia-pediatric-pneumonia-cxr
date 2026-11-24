@@ -1,7 +1,7 @@
 # Pediatric Pneumonia Detection in Chest X-rays
 
 **Biomedical Image Analysis · M.Sc. Applied Data Science and AI · SRH University Munich · Winter semester 2026/27**
-**Author(s):** Ashok Rai · **Repository:** https://github.com/ashok-rai/bia-pediatric-pneumonia-cxr · **Date:** 19.11.2026
+**Author(s):** Ashok Rai · **Repository:** https://github.com/ashok-rai/bia-pediatric-pneumonia-cxr · **Date:** 24.11.2026
 
 ---
 
@@ -31,7 +31,7 @@ I asked whether an ImageNet-pretrained CNN can tell pneumonia from normal in ped
 | Quality checks | A1: 20 training images looked at by eye; "R" markers, corner text and tubes/electrodes are visible in some. A3: 0 of 624 test images have a near-twin in training (mean pixel difference < 0.03 at 64 × 64). A4: 161 patient IDs in both training and test, 297 in both training and validation (the IM-xxxx rule for normal images is my assumption; how the 161 split into personN vs IM-xxxx: to check) |
 | Shared with Deep Learning? | No. My Deep Learning project is a different one (Project 6, Kim CNN) |
 
-Figure of typical images: `notebooks/results-latest/results/A1_examples.png`.
+Figure of typical images: `results/A1_examples.png`.
 
 ## 3 · Experimental design (15 %)
 
@@ -43,9 +43,9 @@ Figure of typical images: `notebooks/results-latest/results/A1_examples.png`.
 
 ## 4 · Implementation and reproducibility (25 %)
 
-- **Run it:** Google Colab, one notebook: `notebooks/BIA_W6_Project_Latest.ipynb` (download cell → YOUR DATA cell → Runtime → Run all). Versions in `notebooks/results-latest/requirements.txt`: numpy 2.4.6, torch 2.14.1, torchvision 0.29.1, scikit-learn 1.6.1, plus matplotlib, Pillow, requests.
+- **Run it:** Google Colab, one notebook: `notebooks/BIA_W6_Project_Latest.ipynb` (download cell → YOUR DATA cell → Runtime → Run all). Versions in `requirements.txt`: numpy 2.4.6, torch 2.14.1, torchvision 0.29.1, scikit-learn 1.6.1, plus matplotlib, Pillow, requests.
 - **Seeds, hardware, training time:** Seeds 0, 1, 2 for the linear last layer; validation split seed 0; random forest random_state 0. Hardware: Google Colab, Tesla T4 GPU. Training time: not measured (I do not know yet).
-- **Where the results come from:** All numbers and figures come from the notebook outputs and the files in `notebooks/results-latest/results/` (the notebook writes them to `results/`; which file feeds which section is listed in README block 7).
+- **Where the results come from:** All numbers and figures come from the notebook outputs and the files in `results/` (written by the notebook; which file feeds which section is listed in README block 7).
 
 ## 5 · Evaluation, validation and critical analysis (15 %)
 
@@ -76,7 +76,7 @@ Derived specificity = (accuracy × 624 − pneumonia found) / 234 normal test im
 
 ## 7 · Use of AI tools (5 %)
 
-[Which tools you used, for what (code, text, debugging), and how you checked their output. Be specific.]
+I used ChatGPT for planning the workplan, explaining concepts (transfer learning, calibration, bootstrap) and debugging (Colab download, Grad-CAM hooks); GitHub Copilot for code completion and first drafts of README and report text; and Devin AI for auditing the repository against the checkpoint and preparing the submission. No result comes from an AI tool: all numbers are notebook outputs in `results/`, and I checked every suggestion by running it, reading the output, or comparing with the data source and the paper. Dated log: `AI_USAGE_LOG.md`.
 
 ## 8 · Conclusion (documentation and communication, 5 %)
 
