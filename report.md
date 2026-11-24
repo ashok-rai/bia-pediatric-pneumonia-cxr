@@ -31,7 +31,7 @@ I asked whether an ImageNet-pretrained CNN can tell pneumonia from normal in ped
 | Quality checks | A1: 20 training images looked at by eye; "R" markers, corner text and tubes/electrodes are visible in some. A3: 0 of 624 test images have a near-twin in training (mean pixel difference < 0.03 at 64 × 64). A4: 161 patient IDs in both training and test, 297 in both training and validation (the IM-xxxx rule for normal images is my assumption; how the 161 split into personN vs IM-xxxx: to check) |
 | Shared with Deep Learning? | No. My Deep Learning project is a different one (Project 6, Kim CNN) |
 
-Figure of typical images: `results/A1_examples.png`.
+Figure of typical images: ![A1_examples.png](results/A1_examples.png)
 
 ## 3 · Experimental design (15 %)
 
@@ -76,7 +76,7 @@ Derived specificity = (accuracy × 624 − pneumonia found) / 234 normal test im
 
 ## 7 · Use of AI tools (5 %)
 
-I used ChatGPT for planning the workplan, explaining concepts (transfer learning, calibration, bootstrap) and debugging (Colab download, Grad-CAM hooks); GitHub Copilot for code completion and first drafts of README and report text; and Devin AI for auditing the repository against the checkpoint and preparing the submission. No result comes from an AI tool: all numbers are notebook outputs in `results/`, and I checked every suggestion by running it, reading the output, or comparing with the data source and the paper. Dated log: `AI_USAGE_LOG.md`.
+I used ChatGPT for planning the workplan, explaining concepts (transfer learning, calibration, bootstrap) and debugging (Colab download, Grad-CAM hooks); GitHub Copilot for code completion and first drafts of README and report text; and Devin AI for auditing the repository against the checkpoint and preparing the submission. No result comes from an AI tool: all numbers are notebook outputs in `results/`, and I checked every suggestion by running it, reading the output, or comparing with the data source and the paper. Dated log: [AI_USAGE_LOG.md](AI_USAGE_LOG.md).
 
 ## 8 · Conclusion (documentation and communication, 5 %)
 
