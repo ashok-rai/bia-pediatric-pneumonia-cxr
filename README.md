@@ -38,7 +38,13 @@ Two expert physicians graded the images after a quality check removed unreadable
 
 ## 6 · Progress: one turn of the cycle
 
-- [x] 0 · Question · [x] 1 · Load · [x] 2 · Look (20 images) · [x] 3 · Count + floor · [x] 4 · Check (split by child) · [x] 5 · Data table · [x] 6 · Network next to floor and baseline
+- [x] 0 · Question 
+- [x] 1 · Load 
+- [x] 2 · Look (20 images) 
+- [x] 3 · Count + floor 
+- [x] 4 · Check (split by child) 
+- [x] 5 · Data table 
+- [x] 6 · Network next to floor and baseline
 
 ## 7 · How to run it  *(report section 4)*
 
