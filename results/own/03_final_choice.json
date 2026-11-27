@@ -1,0 +1,8 @@
+{
+  "config": "finetuned (B)",
+  "seed": 0,
+  "val_auc_mean": 0.999174533896295,
+  "threshold": 0.9959558248519897,
+  "input_size": 224,
+  "checkpoint": "data/models/03_final.pt"
+}

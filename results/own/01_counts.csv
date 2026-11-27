@@ -1,0 +1,5 @@
+split,normal_images,pneumonia_images,total_images,normal_patients,pneumonia_patients,total_patients,pneumonia_share
+train,1152,2891,4043,1036,1251,2287,0.715
+val,197,535,732,183,221,404,0.731
+test,234,390,624,225,202,427,0.625
+dropped,0,457,457,0,170,170,1.000
