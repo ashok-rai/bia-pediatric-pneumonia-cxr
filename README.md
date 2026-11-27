@@ -1,65 +1,59 @@
 # Pneumonia or normal? Classifying pediatric chest X-rays (Kermany et al., 2018)
 
 **Biomedical Image Analysis · M.Sc. Applied Data Science and AI · SRH University Munich · WS 2026/27**
-**Author:** Ashok Rai · **Last updated:** 24.11.2026
+**Author:** Ashok Rai · **Last updated:** 29.11.2026 · **Report:** [report.md](report.md)
 
 ---
 
-## 1 · My question in one sentence  *(Session 12 · report section 1)*
+## 1 · My question in one sentence  *(report section 1)*
 
-Can a CNN pretrained on ImageNet (transfer learning) tell pneumonia from normal in pediatric chest X-rays reliably enough to help a doctor triage (prioritise) cases where radiologists are scarce?
+Can a CNN pretrained on ImageNet tell pneumonia from normal in pediatric chest X-rays reliably enough to help a doctor triage cases where radiologists are scarce?
 
-## 2 · Five lines  *(Session 6 · report sections 1–3)*
+## 2 · Five lines  *(report sections 1–3)*
 
 | | |
 |---|---|
 | **Question** | Pneumonia vs. normal on pediatric chest X-rays, as a triage aid |
-| **Images** | Kermany et al. 2018, "ChestXRay2017" from Mendeley Data V2 (https://data.mendeley.com/datasets/rscbjbr9sj), downloaded 19.11.2026: 5,856 JPEGs, 5,232 train / 624 test |
-| **Labels** | One class per image: NORMAL / PNEUMONIA (file names also say bacterial or viral) |
-| **Metric** | Sensitivity (missing pneumonia is the worst error), specificity, ROC-AUC. Also accuracy, to compare with the paper (92.8 % acc., 93.2 % sens., 90.1 % spec., AUC 96.8 % — to verify against the paper) |
-| **Baseline** | Floor: always "pneumonia" = 390/624 ≈ 62.5 % test accuracy (sensitivity 100 %, specificity 0 %). Classical: intensity histogram + 8×8 thumbnail + random forest; texture features (GLCM) are still planned |
+| **Images** | Kermany et al. 2018, `ChestXRay2017.zip`, Mendeley Data V2 (doi:10.17632/rscbjbr9sj.2, CC BY 4.0), downloaded 19.11.2026: 5,856 JPEGs |
+| **Labels** | NORMAL / PNEUMONIA, graded by two expert physicians, evaluation set checked by a third |
+| **Metric** | Sensitivity (missing pneumonia is the worst error), with specificity, precision and ROC-AUC; accuracy to compare with the paper (92.8 % acc., 93.2 % sens., 90.1 % spec., AUC 0.968) |
+| **Baseline** | Floor: always "pneumonia" = 62.5 % test accuracy. Classical: random forest on histogram + 8×8 thumbnail, and on GLCM texture |
 
-## 3 · Flat images or stacks?  *(Session 10 · report section 2)*
+## 3 · Flat images or stacks?  *(report section 2)*
 
-- **2D or 3D:** 2D, one frontal (anterior-posterior) chest X-ray per JPEG file
-- **Pixel or voxel size:** Not reported (JPEGs have no DICOM header; image sizes vary)
-- **3D only:** Not applicable
+- **2D or 3D:** 2D, one frontal (anterior-posterior) chest X-ray per JPEG
+- **Pixel size:** not reported (no DICOM header; image sizes vary)
 
-## 4 · Who made the labels?  *(Session 11 · report section 2)*
+## 4 · Who made the labels?  *(report section 2)*
 
-1. **Who:** Expert physicians graded the images after a quality check removed unreadable scans. Patients were children aged 1–5 at Guangzhou Women and Children's Medical Center.
-2. **How many:** The number of graders per image is not reported in the data files. The paper describes grading by expert physicians (to verify in the paper's Methods section).
-3. **What it means:** The label is the physicians' diagnosis from the X-ray, not confirmed by a lab test. Bacterial or viral is only given in the file names.
+Two expert physicians graded the images after a quality check removed unreadable scans; a third expert checked the evaluation set. Patients were children aged 1–5 at Guangzhou Women and Children's Medical Center. The label is the diagnosis from the X-ray, not confirmed by a lab test.
 
-## 5 · Leakage check  *(Session 7 · report sections 2 and 5)*
+## 5 · Leakage check  *(report sections 2 and 5)*
 
-1. **Several images per patient?** Yes. I read the patient ID from the file name: "personN" for pneumonia, "IM-xxxx" / "NORMAL2-IM-xxxx" for normal (the IM rule is my assumption). 161 patient IDs are in both training and test, and 297 in both training and validation, because the split is by image, not by patient.
-2. **Copies?** 0 of 624 test images have a near-twin in training (mean pixel difference < 0.03 at 64 × 64).
-3. **Means and augmentation after the split?** No augmentation. Normalisation uses the fixed ImageNet mean/std, not values computed from my data, so nothing leaks.
-4. **Epochs and thresholds on validation only?** No. The validation set is not used: 10 epochs and the argmax threshold are fixed, and I chose "balanced" over "plain" by looking at the test numbers (B3).
-5. **Anything that gives the label away?** Possibly: "R" markers, corner text and tubes/electrodes (A1, C4); Grad-CAM often lights up the image edges (B4); the file names follow a different pattern per class.
+1. **Several images per child?** Yes, and the official split was not by child: 170 children were in both train and test. **Fixed:** their 457 training images were dropped, and validation is split by child, so 0 children are shared between any two splits (`01_overlap.md`).
+2. **Copies?** 0 near-twins between splits (mean pixel difference < 0.03 at 64 × 64).
+3. **Means and augmentation after the split?** Normalisation uses the fixed ImageNet mean/std; augmentation (config C) only on training batches.
+4. **Epochs and thresholds on validation only?** **Fixed:** the best epoch, the configuration and the threshold are all chosen on validation; the test set is used once, in notebook 04.
+5. **Anything that gives the label away?** "R" markers, corner text and tubes are visible, and file names differ per class. Masking the image border lowers AUC from 0.943 to 0.924; the border alone gives 0.762 (`04_masking.md`).
 
-## 6 · Progress: one turn of the cycle  *(Session 12)*
+## 6 · Progress: one turn of the cycle
 
-- [x] 0 · Question: one sentence (block 1)
-- [x] 1 · Load: my data downloads in Colab
-- [x] 2 · Look: 20 images with their labels, looked at by eye
-- [x] 3 · Count: images per class or share of foreground pixels; the floor
-- [x] 4 · Check: twins, the same patient twice (block 5)
-- [x] 5 · Table: the data table in report section 2 is filled in
-- [x] 6 · Number: a first network next to the floor and the classical baseline *(after 19.11.)*
+- [x] 0 · Question · [x] 1 · Load · [x] 2 · Look (20 images) · [x] 3 · Count + floor · [x] 4 · Check (split by child) · [x] 5 · Data table · [x] 6 · Network next to floor and baseline
 
 ## 7 · How to run it  *(report section 4)*
 
-- **Environment:** Google Colab with a Tesla T4 GPU. Python 3, PyTorch + torchvision. Versions in `requirements.txt`: numpy 2.4.6, torch 2.14.1, torchvision 0.29.1, scikit-learn 1.6.1, plus matplotlib, Pillow, requests.
-- **Order:** One notebook, `notebooks/BIA_W6_Project_Latest.ipynb`: run the download cell (Mendeley zip), check the YOUR DATA cell, then Runtime → Run all.
-- **Which file makes which table or figure:** The notebook writes its files to `results/` (repository root).
-  - `A1_examples.png` → report section 2, figure of typical images
-  - `A2_counts.csv`, `A5_data_table.md` → report section 2, data table
-  - `B2_confusion.png`, `B3_numbers.md`, `C1_seeds.json`, `C2_bootstrap.png` → report section 5, results table
-  - `C3_calibration.png`, `C4_worst.png` → report section 5, calibration and worst cases
-  - `B4_gradcam.png`, `B5_sanity.png` → report section 6, heat maps
-  - `C5_summary.md` → report abstract
+- **Environment:** Python 3.11, versions in `requirements.txt`. Notebook 03 was trained on Google Colab (Tesla T4); 01, 02 and 04 ran locally. Each notebook downloads the data if it is missing.
+- **Order:** `notebooks/01_patient_split_audit` → `02_baselines` → `03_cnn_finetune` → `04_evaluation_shortcuts`. Notebook 04 needs the checkpoint `data/models/03_final.pt` from notebook 03 (not in git, too large).
+- **Which file feeds which report section** (all in `results/own/`, plus `splits/patient_split.csv`):
+
+| Notebook | Files | Report section |
+|---|---|---|
+| 01 | `01_data_table.md`, `01_examples.png`, `01_counts.csv`, `01_overlap.md`, `01_patients_per_id.png`, `splits/patient_split.csv` | 2 · data |
+| 02 | `02_baselines.md`, `02_roc.png`, `02_perm_importance.png`, `02_probs.csv` | 5 · baselines, before/after |
+| 03 | `03_models.md`, `03_curves.png`, `03_final_choice.json`, `03_probs.csv` | 3 · design, 5 · results |
+| 04 | `04_final_table.md`, `04_confusion.png`, `04_roc.png`, `04_bootstrap.png`, `04_calibration.png`, `04_worst.png`, `04_masking.md`, `04_masking.png` | 5 · results |
+| 04 | `04_gradcam.png`, `04_sanity.png` | 6 · explainability |
+| 04 | `04_summary.md` | abstract |
 
 ## 8 · Shared with my Deep Learning project?
 
@@ -67,4 +61,4 @@ No. My Deep Learning project is a different one (Project 6, Kim CNN).
 
 ## 9 · Use of AI tools  *(report section 7)*
 
-Dated log of how I used ChatGPT, GitHub Copilot and Devin AI: [AI_USAGE_LOG.md](AI_USAGE_LOG.md).
+Dated log: [AI_USAGE_LOG.md](AI_USAGE_LOG.md).
